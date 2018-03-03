@@ -28,6 +28,8 @@ npm run dev
 ## Directory Structrue
 ```
 .(root)
+├── .gitignore
+├── README.md
 └── backend/
     ├── bin
     │     └── www.js
@@ -45,7 +47,5 @@ npm run dev
     ├── .babelrc
     ├── app.js
     ├── gulpfile.bable.js
-    ├── package.json
-    ├── .gitignore
-    └── README.md
+    └── package.json
 ```
