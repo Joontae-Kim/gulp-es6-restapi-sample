@@ -4,6 +4,7 @@
   "description": "REST framework node.js express - backend",
   "main": "index.js",
   "scripts": {
+    "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -27,9 +28,14 @@
     "babel-preset-es2015": "^6.24.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-file-cache": "0.0.1",
     "gulp-imagemin": "^4.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.2.1",
     "gulp-uglify": "^3.0.0",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "pump": "^3.0.0"
   },
   "author": "bexellenting@gmail.com",
   "license": "MIT"
