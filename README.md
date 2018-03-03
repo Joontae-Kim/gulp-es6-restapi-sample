@@ -4,7 +4,7 @@ REST framework sample for Node.js express >= v8.9.4
 ## Directory Structrue
 <!-- ├──  -->
 <!-- │ -->
-<!-- .
+```.
 └── backend/
     ├── bin
     │     └── www.js
@@ -22,9 +22,10 @@ REST framework sample for Node.js express >= v8.9.4
     ├── gulpfile.bable.js
     ├── package.json
     ├── .gitignore
-    └── README.md -->
-    .
-    +-- _config.yml
+    └── README.md
+    ```
+
+    <!-- +-- _config.yml
     +-- _drafts
     |   +-- begin-with-the-crazy-ideas.textile
     |   +-- on-simplicity-in-technology.markdown
@@ -40,4 +41,4 @@ REST framework sample for Node.js express >= v8.9.4
     +-- _data
     |   +-- members.yml
     +-- _site
-    +-- index.html
+    +-- index.html -->
