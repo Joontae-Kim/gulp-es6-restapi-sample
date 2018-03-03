@@ -1,10 +1,33 @@
 # gulp-es6-restapi-sample
 REST framework sample for Node.js express >= v8.9.4
 
+## Get Started
+
+```
+git clone https://github.com/Joontae-Kim/gulp-es6-restapi-sample.git
+cd gulp-es6-restapi-sample && cd backend
+npm install
+npm run dev
+```
+
+## Stack
+### Back-end
+ - Node.js : JavaScript runtime built on Chrome's V8 JavaScript engine
+ - Express : Node.js Web framework
+ - NPM : Node Package management
+ - Gulp : Javascript build automation tool
+
+#### Third Party Libraries for Gulp task
+  - babel-core
+  - babel-preset-es2015
+  - del
+  - gulp-imagemin
+  - gulp-uglify
+  - gulp-util
+
 ## Directory Structrue
-<!-- ├──  -->
-<!-- │ -->
-```.
+```
+.(root)
 └── backend/
     ├── bin
     │     └── www.js
@@ -23,22 +46,4 @@ REST framework sample for Node.js express >= v8.9.4
     ├── package.json
     ├── .gitignore
     └── README.md
-    ```
-
-    <!-- +-- _config.yml
-    +-- _drafts
-    |   +-- begin-with-the-crazy-ideas.textile
-    |   +-- on-simplicity-in-technology.markdown
-    +-- _includes
-    |   +-- footer.html
-    |   +-- header.html
-    +-- _layouts
-    |   +-- default.html
-    |   +-- post.html
-    +-- _posts
-    |   +-- 2007-10-29-why-every-programmer-should-play-nethack.textile
-    |   +-- 2009-04-26-barcamp-boston-4-roundup.textile
-    +-- _data
-    |   +-- members.yml
-    +-- _site
-    +-- index.html -->
+```
