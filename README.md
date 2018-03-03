@@ -1,6 +1,6 @@
 # gulp-es6-restapi-sample
-REST framework sample for Node.js express >= v8.9.4
-
+- REST framework sample for Node.js express >= v8.9.4
+- Use gulp to automatize ES6 transpilation in server-side. (Express.js, gulp, babel, browser-sync, nodemon)
 ## Get Started
 
 ```
@@ -32,14 +32,16 @@ npm run dev
     ├── bin
     │     └── www.js
     ├── dist
-    │     └── lib
+    │     ├── lib
     │     │     └── common.js
     │     └── routes
-    ├── lib
-    │     └── something.js
+    │           └── index.js
+    ├── src
+    │     ├── lib
+    │     │    └── something.js
+    │     └── routes
+    │          └── index.js
     ├── node_modules
-    ├── routes
-    │        └── index.js
     ├── .babelrc
     ├── app.js
     ├── gulpfile.bable.js
