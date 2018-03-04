@@ -10,9 +10,9 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', express.static(__dirname + '../dist'));
+app.use('/', express.static(__dirname + './dist'));
 
-const index = require('./routes/index');
+const index = require('./dist/routes/index');
 
 app.use('/', index);
 
