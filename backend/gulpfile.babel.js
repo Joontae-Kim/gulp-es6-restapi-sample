@@ -8,6 +8,8 @@ import babel from 'gulp-babel';
 import Cache from 'gulp-file-cache';
 import nodemon from 'gulp-nodemon'
 import livereload from 'gulp-livereload';
+import concat from 'gulp-concat';
+import merge from 'merge-stream';
 
 import pump from 'pump';
 import del from 'del';
@@ -21,11 +23,15 @@ const DIR = {
 };
 
 const SRC = {
-    JS: DIR.SRC + '/**/*.js'
+    JS: DIR.SRC + '/**/*.js',
+    ROUTES: DIR.SRC + '/routes/*.js',
+    LIB: DIR.SRC + '/lib/*.js'
 };
 
 const DEST = {
-    JS: DIR.DEST
+    JS: DIR.DEST,
+    ROUTES: DIR.DEST + '/routes',
+    LIB: DIR.DEST + '/lib'
 };
 
 gulp.task('clean', () => {
@@ -33,12 +39,22 @@ gulp.task('clean', () => {
 });
 
 gulp.task('js', () => {
-  return gulp.src(SRC.JS)
-          .pipe(babel({
-              presets: ['es2015']
-          }))
-         .pipe(uglify())
-         .pipe(gulp.dest(DEST.JS));
+  let routesTask = gulp.src(SRC.ROUTES)
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+   .pipe(uglify())
+   .pipe(gulp.dest(DEST.ROUTES));
+
+  let libTask = gulp.src(SRC.LIB)
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(concat('common.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(DEST.LIB));
+
+  return merge(routesTask, libTask);
 });
 
 gulp.task('default', ['clean', 'js'], () => {
