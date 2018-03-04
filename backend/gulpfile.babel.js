@@ -7,12 +7,12 @@ import babel from 'gulp-babel';
 import uglify from 'gulp-uglify';
 import Cache from 'gulp-file-cache';
 import concat from 'gulp-concat';
-import merge from 'merge-stream';
-
+import sourcemaps from 'gulp-sourcemaps';
 import livereload from 'gulp-livereload';
 import nodemon from 'gulp-nodemon'
-import browserSync from 'browser-sync';
 
+import merge from 'merge-stream';
+import browserSync from 'browser-sync';
 import pump from 'pump';
 import del from 'del';
 
@@ -59,7 +59,8 @@ gulp.task('js', () => {
     .pipe(gulp.dest(DEST.LIB))
     .pipe(_browserSync.reload({ stream : true }))
 
-  return merge(routesTask, libTask);
+  return
+    merge(routesTask, libTask)
 });
 
 gulp.task('watch', () => {
