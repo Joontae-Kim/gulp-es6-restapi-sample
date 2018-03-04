@@ -1,1 +1,1 @@
-console.log('libarary_1_.js');
+console.log('libarary_1.js');
