@@ -55,7 +55,7 @@ npm run dev
     ├── node_modules
     ├── .babelrc
     ├── app.js
-    ├── gulpfile.bable.js
+    ├── gulpfile.babel.js
     └── package.json
 ```
 
