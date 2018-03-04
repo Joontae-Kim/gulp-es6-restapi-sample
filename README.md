@@ -21,13 +21,15 @@ npm run dev
 - gulp
 - gulp-babel
 - gulp-concat
-- gulp-file-cache
+- ~~gulp-file-cache~~
+- gulp-cached
 - gulp-imagemin
 - gulp-livereload
 - gulp-nodemon
 - gulp-uglify
 - gulp-util
 - merge-stream
+- lazypipe
 - babel-core
 - babel-preset-es2015
 - browser-sync
