@@ -18,12 +18,21 @@ npm run dev
  - Gulp : Javascript build automation tool
 
 #### Third Party Libraries for Gulp task
-  - babel-core
-  - babel-preset-es2015
-  - del
-  - gulp-imagemin
-  - gulp-uglify
-  - gulp-util
+- gulp
+- gulp-babel
+- gulp-concat
+- gulp-file-cache
+- gulp-imagemin
+- gulp-livereload
+- gulp-nodemon
+- gulp-uglify
+- gulp-util
+- merge-stream
+- babel-core
+- babel-preset-es2015
+- browser-sync
+- del
+- pump
 
 ## Directory Structrue
 ```
@@ -49,3 +58,15 @@ npm run dev
     ├── gulpfile.bable.js
     └── package.json
 ```
+
+## Reference
+- **(official, en)** Gulp : Sample for gulpfile.js; (https://github.com/gulpjs/gulp)
+- **(official, en)** nodemon : Examples Part Part (https://github.com/JacksonGariety/gulp-nodemon)
+- **(official, en)** browser-sync : Usage and Examples Part (https://github.com/deepak1556/gulp-browserify)
+- **(private, en)** nodemon + browser-sync part in gulpfile.js (https://gist.github.com/sogko/b53d33d4f3b40d3b4b2e)
+- **(private, kr)** gulp-concat (http://webclub.tistory.com/468)
+- **(official, en, gulpjs.org/recipes)** Using multiple sources in one task
+(https://gulpjs.org/recipes/using-multiple-sources-in-one-task)
+- **(private, kr)** babel, webpack, nodemon, browser-sync   
+  - https://velopert.com/1456
+  - https://github.com/velopert/gulp-es6-webpack/tree/tut12-1
