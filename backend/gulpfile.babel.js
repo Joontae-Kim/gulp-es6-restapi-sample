@@ -3,18 +3,21 @@
 import gulp from 'gulp';
 import gutil from 'gulp-util';
 
-import uglify from 'gulp-uglify';
 import babel from 'gulp-babel';
+import uglify from 'gulp-uglify';
 import Cache from 'gulp-file-cache';
-import nodemon from 'gulp-nodemon'
-import livereload from 'gulp-livereload';
 import concat from 'gulp-concat';
 import merge from 'merge-stream';
+
+import livereload from 'gulp-livereload';
+import nodemon from 'gulp-nodemon'
+import browserSync from 'browser-sync';
 
 import pump from 'pump';
 import del from 'del';
 
 let cache = new Cache();
+let _browserSync = browserSync.create();
 
 // Definition Directory
 const DIR = {
@@ -35,7 +38,7 @@ const DEST = {
 };
 
 gulp.task('clean', () => {
-    return del.sync([DIR.DEST]);
+    return del.sync([DIR.DEST])
 });
 
 gulp.task('js', () => {
@@ -44,7 +47,8 @@ gulp.task('js', () => {
       presets: ['es2015']
     }))
    .pipe(uglify())
-   .pipe(gulp.dest(DEST.ROUTES));
+   .pipe(gulp.dest(DEST.ROUTES))
+   .pipe(_browserSync.reload({ stream : true }))
 
   let libTask = gulp.src(SRC.LIB)
     .pipe(babel({
@@ -52,11 +56,62 @@ gulp.task('js', () => {
     }))
     .pipe(concat('common.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(DEST.LIB));
+    .pipe(gulp.dest(DEST.LIB))
+    .pipe(_browserSync.reload({ stream : true }))
 
   return merge(routesTask, libTask);
 });
 
-gulp.task('default', ['clean', 'js'], () => {
+gulp.task('watch', () => {
+    del.sync([DIR.DEST]);
+
+    let watcher = {
+      js: gulp.watch([SRC.ROUTES, SRC.LIB], ['js'])
+    };
+
+    let notify = (event) => {
+        gutil.log('File', gutil.colors.yellow(event.path), 'was', gutil.colors.magenta(event.type));
+    };
+
+    for(let key in watcher) {
+        watcher[key].on('change', notify)
+    }
+
+    _browserSync.reload({ stream : true });
+});
+
+
+gulp.task('start', ['js'], () => {
+  livereload.listen()
+    nodemon({
+      script: './bin/www.js',
+      watch: DIR.DEST,
+      stdout: false,
+      ignore: [
+        'gulpfile.babel.js',
+        'node_modules/',
+        'bin/'
+      ]
+    }).on('readable', function() {
+      this.stdout.on('data', function(chunk) {
+        if (/^listening/.test(chunk)) {
+          livereload.reload()
+        }
+        process.stdout.write(chunk)
+      })
+    })
+})
+
+gulp.task('browser-sync', function() {
+  _browserSync.init({
+    proxy: "localhost:3030",  // local node app address
+    port: 5000,  // use *different* port than above,
+    files: ["dist/**/*.js"],
+    notify: true
+  });
+});
+
+
+gulp.task('default', ['clean', 'js', 'watch', 'browser-sync', 'start'], () => {
     return gutil.log('Gulp is running');
 });
