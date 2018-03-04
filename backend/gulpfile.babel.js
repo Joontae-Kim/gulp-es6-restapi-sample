@@ -5,18 +5,19 @@ import gutil from 'gulp-util';
 
 import babel from 'gulp-babel';
 import uglify from 'gulp-uglify';
-import Cache from 'gulp-file-cache';
+// import Cache from 'gulp-file-cache';
+import Cache from 'gulp-cached';
 import concat from 'gulp-concat';
-import sourcemaps from 'gulp-sourcemaps';
+// import sourcemaps from 'gulp-sourcemaps';
 import livereload from 'gulp-livereload';
 import nodemon from 'gulp-nodemon'
 
+import lazypipe from 'lazypipe';
 import merge from 'merge-stream';
 import browserSync from 'browser-sync';
 import pump from 'pump';
 import del from 'del';
 
-let cache = new Cache();
 let _browserSync = browserSync.create();
 
 // Definition Directory
@@ -37,25 +38,29 @@ const DEST = {
     LIB: DIR.DEST + '/lib'
 };
 
+// give lazypipe
+function buildPipes(path, cacheName) {
+  return lazypipe()
+    .pipe(Cache, cacheName)
+    .pipe(babel, {
+        presets: ["es2015"]
+     })
+    .pipe(uglify)
+}
+
 gulp.task('clean', () => {
     return del.sync([DIR.DEST])
 });
 
 gulp.task('js', () => {
   let routesTask = gulp.src(SRC.ROUTES)
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-   .pipe(uglify())
+   .pipe(buildPipes(SRC.ROUTES, 'ROUTES')())
    .pipe(gulp.dest(DEST.ROUTES))
    .pipe(_browserSync.reload({ stream : true }))
 
   let libTask = gulp.src(SRC.LIB)
-    .pipe(babel({
-      presets: ['es2015']
-    }))
+    .pipe(buildPipes(SRC.LIB, 'LIB')())
     .pipe(concat('common.js'))
-    .pipe(uglify())
     .pipe(gulp.dest(DEST.LIB))
     .pipe(_browserSync.reload({ stream : true }))
 
