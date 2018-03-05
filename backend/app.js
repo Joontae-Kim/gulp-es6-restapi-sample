@@ -13,7 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', express.static(__dirname + './dist'));
 
 const index = require('./dist/routes/index');
+const meta = require('./dist/routes/meta');
 
 app.use('/', index);
+app.use('/meta', meta);
 
 module.exports = app;
