@@ -8,7 +8,7 @@ import uglify from 'gulp-uglify';
 // import Cache from 'gulp-file-cache';
 import Cache from 'gulp-cached';
 import concat from 'gulp-concat';
-// import sourcemaps from 'gulp-sourcemaps';
+import sourcemaps from 'gulp-sourcemaps';
 import livereload from 'gulp-livereload';
 import nodemon from 'gulp-nodemon'
 
@@ -42,10 +42,17 @@ const DEST = {
 function buildPipes(path, cacheName) {
   return lazypipe()
     .pipe(Cache, cacheName)
-    .pipe(babel, {
-        presets: ["es2015"]
-     })
-    .pipe(uglify)
+    .pipe(sourcemaps.init)
+      .pipe(babel, {
+          presets: ["es2015"]
+       })
+      .pipe(uglify)
+    .pipe(sourcemaps.mapSources, (function(sourcePath, file) {
+      // source paths are prefixed with '../src/'
+      // return '../src/' + sourcePath;
+      return path;
+    }))
+    .pipe(sourcemaps.write, '../maps')
 }
 
 gulp.task('clean', () => {
@@ -72,7 +79,8 @@ gulp.task('watch', () => {
     del.sync([DIR.DEST]);
 
     let watcher = {
-      js: gulp.watch([SRC.ROUTES, SRC.LIB], ['js'])
+      js: gulp.watch([SRC.ROUTES, SRC.LIB], ['js']),
+      server: gulp.watch(['app.js'])
     };
 
     let notify = (event) => {
